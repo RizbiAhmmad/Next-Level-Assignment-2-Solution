@@ -9,7 +9,7 @@ const result =await authServices.signinUserIntoDB(req.body.email, req.body.passw
     res.status(200).json({
       success: true,
       message: "Login successful",
-     data: result.rows[0],
+     data: result,
     });
   } catch (error: any) {
     return res.status(500).json({

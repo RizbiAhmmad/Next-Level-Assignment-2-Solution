@@ -12,10 +12,24 @@ export const initDB = async()=>{
             email VARCHAR(200) NOT NULL UNIQUE CHECK (email = LOWER(email)),
             password TEXT NOT NULL CHECK (char_length(password) >= 6),
             phone VARCHAR(100) NOT NULL,
-            role VARCHAR(50) NOT NULL CHECK (role IN ('admin', 'customer')),
+            role VARCHAR(100) NOT NULL CHECK (role IN ('admin', 'customer')),
             created_at TIMESTAMP DEFAULT NOW(),
             updated_at TIMESTAMP DEFAULT NOW()
         );
     `);
+
+await pool.query(`
+    CREATE TABLE IF NOT EXISTS Vehicles(
+        id SERIAL PRIMARY KEY,
+        vehicle_name VARCHAR(200) NOT NULL,
+        type VARCHAR(50) NOT NULL CHECK (type IN ('car','bike','van','SUV')),
+        registration_number VARCHAR(100) UNIQUE NOT NULL,
+        daily_rent_price INT NOT NULL CHECK (daily_rent_price > 0),
+        availability_status VARCHAR(50) NOT NULL CHECK (availability_status IN ('available','booked')),
+        created_at TIMESTAMP DEFAULT NOW(),
+        updated_at TIMESTAMP DEFAULT NOW()
+    );
+`);
+
     console.log("Database Connected ");
 }
