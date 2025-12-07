@@ -41,7 +41,7 @@ const updateVehicleIntoDB = async (id: string, payload: any) => {
 };
 
 const deleteVehicleFromDB = async (id: string) => {
-  // Check if vehicle has active bookings
+
   const check = await pool.query(
     `SELECT * FROM Bookings WHERE vehicle_id=$1 AND status='active'`,
     [id]

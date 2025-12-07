@@ -9,4 +9,7 @@ router.post('/', userController.createUser)
 router.get('/',auth(Roles.admin), userController.getAllUser)
 router.get('/singleuser',auth(Roles.admin, Roles.customer), userController.getSingleUser)
 
+router.put("/:userId", auth(Roles.admin, Roles.customer), userController.updateUser);
+router.delete("/:userId", auth(Roles.admin), userController.deleteUser);
+
 export const userRoute = router

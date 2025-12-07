@@ -31,5 +31,19 @@ await pool.query(`
     );
 `);
 
+await pool.query(`
+    CREATE TABLE IF NOT EXISTS Bookings (
+        id SERIAL PRIMARY KEY,
+        customer_id INT NOT NULL REFERENCES Users(id) ON DELETE CASCADE,
+        vehicle_id INT NOT NULL REFERENCES Vehicles(id) ON DELETE CASCADE,
+        rent_start_date DATE NOT NULL,
+        rent_end_date DATE NOT NULL,
+        total_price INT NOT NULL CHECK (total_price > 0),
+        status VARCHAR(50) NOT NULL CHECK (status IN ('active','cancelled','returned')),
+        created_at TIMESTAMP DEFAULT NOW(),
+        updated_at TIMESTAMP DEFAULT NOW()
+    );
+`);
+
     console.log("Database Connected ");
 }

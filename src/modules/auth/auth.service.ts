@@ -1,4 +1,3 @@
-import { JwtPayload } from './../../../node_modules/@types/jsonwebtoken/index.d';
 import bcrypt from "bcryptjs";
 import { pool } from "../../database/db";
 import jwt from "jsonwebtoken"
