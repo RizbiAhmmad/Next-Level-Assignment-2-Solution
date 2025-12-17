@@ -5,8 +5,13 @@ import { pool } from "../database/db";
 
 const auth = (...roles: ("admin" | "customer")[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.headers.authorization; //bearer token
+    const authHeader = req.headers.authorization;
 
+    if (!authHeader) {
+      return res.status(401).json({ message: "No authorization header" });
+    }
+
+    const token = authHeader.split(" ")[1];
     if (!token) {
       throw new Error("You are not authorized");
     }
